@@ -20,6 +20,7 @@ Documentation
 
 * **[Installing an Arduino Library Guide](https://learn.sparkfun.com/tutorials/installing-an-arduino-library)** - Basic information on how to install an Arduino library.
 * **[SparkFun LED Driver Breakout- TLC5940](https://github.com/sparkfun/LED_Driver_Breakout-TLC5940)** - Main repository (including hardware files) for the LED Driver Breakout.
+* **[SparkFun PWM Shield](https://github.com/sparkfun/PWM_Shield)** - Main repository (including hardware files) for the PWM Shield.
 
 Products that use this Library 
 ---------------------------------
