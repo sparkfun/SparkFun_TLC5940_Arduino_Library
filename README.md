@@ -1,11 +1,10 @@
-SparkFun <PRODUCT NAME> Arduino Library
+SparkFun TLC5940 Arduino Library
 ========================================
 
-![SparkFun Part Name](URL for picture of part)
+The TLC5940 gives the user 16 channel PWM control and can be daisy chained over the serial interface. 
+This library works with the SparkFun LED Driver Breakout and the SparkFun PWM Shield.
 
-[*SparkFun Part Name (SKU)*](URL for product on Sparkfun.com)
-
-<Basic description of the library.>
+This library is forked from the original library by Alex Leone, available [here](https://code.google.com/p/tlc5940arduino/). 
 
 Repository Contents
 -------------------
@@ -20,29 +19,21 @@ Documentation
 --------------
 
 * **[Installing an Arduino Library Guide](https://learn.sparkfun.com/tutorials/installing-an-arduino-library)** - Basic information on how to install an Arduino library.
-* **[Product Repository](GitHub Product URL)** - Main repository (including hardware files) for the <PRODUCT NAME>.
-* **[Hookup Guide](Learn.SparkFun URL)** - Basic hookup guide for the <PRODUCT NAME>.
+* **[SparkFun LED Driver Breakout- TLC5940](https://github.com/sparkfun/LED_Driver_Breakout-TLC5940)** - Main repository (including hardware files) for the LED Driver Breakout.
 
 Products that use this Library 
 ---------------------------------
 
-* [Part SKU](SparkFun part URL)- Basic part and short description here
-* [Part SKU](SparkFun part URL)- Basic part and short description here
+* [BOB-10616](https://www.sparkfun.com/products/10616)- SparkFun LED Driver Breakout-TLC5940
+* [DEV-10615](https://www.sparkfun.com/products/10615)- SparkFun PWM Shield
 
-Version History
----------------
-
-* [vExxFxxZxxHxxLxxSxx](URL for tag specific to this version) - Description 
-* [vEyyFyyZyyHyyLyySyy](URL for tag specific to this version) - Description
 
 License Information
 -------------------
 
 This product is _**open source**_! 
 
-The **code** is beerware; if you see me (or any other SparkFun employee) at the local, and you've found our code helpful, please buy us a round!
-
-Please use, reuse, and modify these files as you see fit. Please maintain attribution to SparkFun Electronics and release anything derivative under the same license.
+The code is released under GPL. 
 
 Distributed as-is; no warranty is given.
 
