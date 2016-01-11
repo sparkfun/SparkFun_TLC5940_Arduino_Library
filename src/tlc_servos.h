@@ -23,7 +23,7 @@
     TLC servo functions. */
 
 #include <avr/io.h>
-#include "Tlc5940.h"
+#include "SparkFun_Tlc5940.h"
 
 #ifndef SERVO_MAX_ANGLE
 /** The maximum angle of the servo. */

@@ -27,7 +27,7 @@
 #include <avr/io.h>
 
 #include "tlc_config.h"
-#include "Tlc5940.h"
+#include "SparkFun_Tlc5940.h"
 
 void tlc_setGSfromProgmem(prog_uint8_t *gsArray);
 #if VPRG_ENABLED

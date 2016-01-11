@@ -22,7 +22,7 @@
 /** \file
     TLC channel shifting functions. */
 
-#include "Tlc5940.h"
+#include "SparkFun_Tlc5940.h"
 
 uint16_t tlc_shiftUp(uint16_t zeroValue = 0);
 uint16_t tlc_shiftDown(uint16_t topValue = 0);

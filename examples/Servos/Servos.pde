@@ -13,7 +13,7 @@
 
     Steve Pomeroy <steve ~AT~ staticfree.info>, 2009-01-20 */
 
-#include "Tlc5940.h"
+#include "SparkFun_Tlc5940.h"
 #include "tlc_servos.h"
 
 #define SERVO_CHANNEL   0

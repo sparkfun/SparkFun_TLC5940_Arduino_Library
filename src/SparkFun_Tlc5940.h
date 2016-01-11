@@ -16,8 +16,8 @@
     along with The Arduino TLC5940 Library.  If not, see
     <http://www.gnu.org/licenses/>. */
 
-#ifndef TLC5940_H
-#define TLC5940_H
+#ifndef SPARKFUN_TLC5940_H
+#define SPARKFUN_TLC5940_H
 
 /** \file
     Tlc5940 library header file. */

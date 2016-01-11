@@ -24,7 +24,7 @@
 
 #include <avr/interrupt.h>
 
-#include "Tlc5940.h"
+#include "SparkFun_Tlc5940.h"
 
 #if defined(ARDUINO) && ARDUINO >= 100
 #include "Arduino.h"

@@ -23,7 +23,7 @@
 #include <avr/interrupt.h>
 
 #include "tlc_config.h"
-#include "Tlc5940.h"
+#include "SparkFun_Tlc5940.h"
 
 /** Pulses a pin - high then low. */
 #define pulse_pin(port, pin)   port |= _BV(pin); port &= ~_BV(pin)

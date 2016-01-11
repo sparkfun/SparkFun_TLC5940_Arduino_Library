@@ -26,7 +26,7 @@
 #include <avr/io.h>
 
 #include "tlc_config.h"
-#include "Tlc5940.h"
+#include "SparkFun_Tlc5940.h"
 #include "tlc_progmem_utils.h"
 
 /** The currently playing animation */

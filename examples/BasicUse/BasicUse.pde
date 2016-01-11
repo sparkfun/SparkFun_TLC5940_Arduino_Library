@@ -47,7 +47,7 @@
 
     Alex Leone <acleone ~AT~ gmail.com>, 2009-02-03 */
 
-#include "Tlc5940.h"
+#include "SparkFun_Tlc5940.h"
 
 void setup()
 {
