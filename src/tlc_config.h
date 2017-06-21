@@ -52,13 +52,17 @@
     of the first TLC to the SIN (TLC pin 26) of the next.  The rest of the pins
     are attached normally.
     \note Each TLC needs it's own IREF resistor */
-#define NUM_TLCS    1
+#ifndef NUM_TLCS
+	#define NUM_TLCS    1
+#endif
 
 /** Determines how data should be transfered to the TLCs.  Bit-banging can use
     any two i/o pins, but the hardware SPI is faster.
     - Bit-Bang = TLC_BITBANG
     - Hardware SPI = TLC_SPI (default) */
-#define DATA_TRANSFER_MODE    TLC_SPI
+#ifndef DATA_TRANSFER_MODE
+	#define DATA_TRANSFER_MODE    TLC_SPI
+#endif
 
 /* This include is down here because the files it includes needs the data
    transfer mode */
