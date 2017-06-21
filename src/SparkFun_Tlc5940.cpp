@@ -36,24 +36,6 @@ volatile uint8_t tlc_needXLAT;
     update. */
 volatile void (*tlc_onUpdateFinished)(void);
 
-/** Packed grayscale data, 24 bytes (16 * 12 bits) per TLC.
-
-    Format: Lets assume we have 2 TLCs, A and B, daisy-chained with the SOUT of
-    A going into the SIN of B.
-    - byte 0: upper 8 bits of B.15
-    - byte 1: lower 4 bits of B.15 and upper 4 bits of B.14
-    - byte 2: lower 8 bits of B.0
-    - ...
-    - byte 24: upper 8 bits of A.15
-    - byte 25: lower 4 bits of A.15 and upper 4 bits of A.14
-    - ...
-    - byte 47: lower 8 bits of A.0
-
-    \note Normally packing data like this is bad practice.  But in this
-          situation, shifting the data out is really fast because the format of
-          the array is the same as the format of the TLC's serial interface. */
-uint8_t tlc_GSData[NUM_TLCS * 24];
-
 /** Don't add an extra SCLK pulse after switching from dot-correction mode. */
 static uint8_t firstGSInput;
 
@@ -89,8 +71,27 @@ ISR(TIMER1_OVF_vect)
     zeros, or whatever initialValue is set to and the Timers will start.
     \param initialValue = 0, optional parameter specifing the inital startup
            value */
-void Tlc5940::init(uint16_t initialValue)
+void Tlc5940::init(uint8_t num_tlcs, uint16_t initialValue)
 {
+	this->num_tlcs = num_tlcs;
+	/** Packed grayscale data, 24 bytes (16 * 12 bits) per TLC.
+
+    Format: Lets assume we have 2 TLCs, A and B, daisy-chained with the SOUT of
+    A going into the SIN of B.
+    - byte 0: upper 8 bits of B.15
+    - byte 1: lower 4 bits of B.15 and upper 4 bits of B.14
+    - byte 2: lower 8 bits of B.0
+    - ...
+    - byte 24: upper 8 bits of A.15
+    - byte 25: lower 4 bits of A.15 and upper 4 bits of A.14
+    - ...
+    - byte 47: lower 8 bits of A.0
+
+    \note Normally packing data like this is bad practice.  But in this
+          situation, shifting the data out is really fast because the format of
+          the array is the same as the format of the TLC's serial interface. */
+	tlc_GSData = new uint8_t[num_tlcs * 24];
+	
     /* Pin Setup */
     XLAT_DDR |= _BV(XLAT_PIN);
     BLANK_DDR |= _BV(BLANK_PIN);
@@ -183,7 +184,7 @@ uint8_t Tlc5940::update(void)
         pulse_pin(SCLK_PORT, SCLK_PIN);
     }
     uint8_t *p = tlc_GSData;
-    while (p < tlc_GSData + NUM_TLCS * 24) {
+    while (p < tlc_GSData + num_tlcs * 24) {
         tlc_shift8(*p++);
         tlc_shift8(*p++);
         tlc_shift8(*p++);
@@ -201,7 +202,7 @@ uint8_t Tlc5940::update(void)
     \see get */
 void Tlc5940::set(TLC_CHANNEL_TYPE channel, uint16_t value)
 {
-    TLC_CHANNEL_TYPE index8 = (NUM_TLCS * 16 - 1) - channel;
+    TLC_CHANNEL_TYPE index8 = (num_tlcs * 16 - 1) - channel;
     uint8_t *index12p = tlc_GSData + ((((uint16_t)index8) * 3) >> 1);
     if (index8 & 1) { // starts in the middle
                       // first 4 bits intact | 4 top bits of value
@@ -223,7 +224,7 @@ void Tlc5940::set(TLC_CHANNEL_TYPE channel, uint16_t value)
     \see set */
 uint16_t Tlc5940::get(TLC_CHANNEL_TYPE channel)
 {
-    TLC_CHANNEL_TYPE index8 = (NUM_TLCS * 16 - 1) - channel;
+    TLC_CHANNEL_TYPE index8 = (num_tlcs * 16 - 1) - channel;
     uint8_t *index12p = tlc_GSData + ((((uint16_t)index8) * 3) >> 1);
     return (index8 & 1)? // starts in the middle
             (((uint16_t)(*index12p & 15)) << 8) | // upper 4 bits
@@ -241,7 +242,7 @@ void Tlc5940::setAll(uint16_t value)
     uint8_t firstByte = value >> 4;
     uint8_t secondByte = (value << 4) | (value >> 8);
     uint8_t *p = tlc_GSData;
-    while (p < tlc_GSData + NUM_TLCS * 24) {
+    while (p < tlc_GSData + num_tlcs * 24) {
         *p++ = firstByte;
         *p++ = secondByte;
         *p++ = (uint8_t)value;
@@ -272,7 +273,7 @@ void Tlc5940::setAllDC(uint8_t value)
     uint8_t secondByte = value << 4 | value >> 2;
     uint8_t thirdByte = value << 6 | value;
 
-    for (TLC_CHANNEL_TYPE i = 0; i < NUM_TLCS * 12; i += 3) {
+    for (TLC_CHANNEL_TYPE i = 0; i < num_tlcs * 12; i += 3) {
         tlc_shift8(firstByte);
         tlc_shift8(secondByte);
         tlc_shift8(thirdByte);
