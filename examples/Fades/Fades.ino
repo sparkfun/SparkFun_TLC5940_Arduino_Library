@@ -29,10 +29,9 @@ void loop()
       tlc_addFade(channel, 0, maxValue, startMillis, endMillis);
       tlc_addFade(channel, maxValue, 0, endMillis, endMillis + duration);
     }
-    if (channel++ == NUM_TLCS * 16) {
+    if (channel++ == Tlc.num_tlcs * 16) {
       channel = 0;
     }
   }
   tlc_updateFades();
 }
-

@@ -43,7 +43,7 @@ void loop()
   Tlc.update();
 
   // Fade each channel to zero
-  for (TLC_CHANNEL_TYPE channel = 0; channel < NUM_TLCS * 16; channel++) {
+  for (TLC_CHANNEL_TYPE channel = 0; channel < Tlc.num_tlcs * 16; channel++) {
     int16_t initialValue = Tlc.get(channel);
     while (initialValue > 0) {
       initialValue -= 5;
@@ -57,4 +57,3 @@ void loop()
     }
   }
 }
-

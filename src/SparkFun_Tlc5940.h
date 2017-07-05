@@ -50,14 +50,14 @@
 
 extern volatile uint8_t tlc_needXLAT;
 extern volatile void (*tlc_onUpdateFinished)(void);
-extern uint8_t tlc_GSData[NUM_TLCS * 24];
+//extern uint8_t tlc_GSData[NUM_TLCS * 24];
 
 /** The main Tlc5940 class for the entire library.  An instance of this class
     will be preinstantiated as Tlc. */
 class Tlc5940
 {
   public:
-    void init(uint16_t initialValue = 0);
+    void init(uint16_t initialValue = 0, uint8_t num_tlcs = 1);
     void clear(void);
     uint8_t update(void);
     void set(TLC_CHANNEL_TYPE channel, uint16_t value);
@@ -69,7 +69,11 @@ class Tlc5940
 #if XERR_ENABLED
     uint8_t readXERR(void);
 #endif
-
+  private:
+	uint8_t _num_tlcs;
+	uint8_t *tlc_GSData;
+  public:
+	const uint8_t &num_tlcs = _num_tlcs;
 };
 
 void tlc_shift8_init(void);
