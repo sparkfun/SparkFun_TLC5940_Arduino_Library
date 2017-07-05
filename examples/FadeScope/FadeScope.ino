@@ -14,8 +14,6 @@
 #define ANALOG_PIN      0
 
 // how many millis to strobe over all the LEDs
-#define SCOPE_PERIOD    (1000 * NUM_TLCS)
-#define LED_PERIOD      SCOPE_PERIOD / (NUM_TLCS * 16)
 
 TLC_CHANNEL_TYPE channel;
 
@@ -26,20 +24,23 @@ void setup()
 
 void loop()
 {
+  // how many millis to strobe over all the LEDs
+  static uint16_t scope_period = 1000 * Tlc.num_tlcs;
+  static uint32_t led_period = scope_period / (Tlc.num_tlcs * 16);
+  
   uint32_t lastMillis = millis();
   tlc_addFade(channel,                      // led channel
               analogRead(ANALOG_PIN) * 4,   // start fade value (0-4095)
               0,                            // end fade value (0-4095)
               lastMillis + 2,               // start millis
-              lastMillis + (uint16_t)SCOPE_PERIOD / 4  // end millis
+              lastMillis + (uint16_t) scope_period / 4  // end millis
              );
-  if (channel++ == NUM_TLCS * 16) {
+  if (channel++ == Tlc.num_tlcs * 16) {
     channel = 0;
   }
   uint32_t currentMillis;
   do {
     currentMillis = millis();
     tlc_updateFades(currentMillis);
-  } while (currentMillis - lastMillis <= LED_PERIOD);
+  } while (currentMillis - lastMillis <= led_period);
 }
-

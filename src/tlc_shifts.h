@@ -44,14 +44,14 @@ uint16_t tlc_shiftUp(uint16_t zeroValue)
     uint16_t topValue = ((uint16_t)(*tlc_GSData) << 4)
                       | (*(tlc_GSData + 1) >> 4);
     uint8_t *p = tlc_GSData + 1;
-    while (p < tlc_GSData + NUM_TLCS * 24 - 1) {
+    while (p < tlc_GSData + Tlc.num_tlcs * 24 - 1) {
         *(p - 1) = (*p << 4) | (*(p + 1) >> 4);
         *p = (*(p + 1) << 4) | (*(p + 2) >> 4);
         p += 2;
     }
-    *(tlc_GSData + NUM_TLCS * 24 - 2) = (*(tlc_GSData + NUM_TLCS * 24 - 1) << 4)
+    *(tlc_GSData + Tlc.num_tlcs * 24 - 2) = (*(tlc_GSData + Tlc.num_tlcs * 24 - 1) << 4)
                                       | ((zeroValue & 0x0F00) >> 8);
-    *(tlc_GSData + NUM_TLCS * 24 - 1) = (uint8_t)zeroValue;
+    *(tlc_GSData + Tlc.num_tlcs * 24 - 1) = (uint8_t)zeroValue;
     return topValue;
 }
 
@@ -61,10 +61,10 @@ uint16_t tlc_shiftUp(uint16_t zeroValue)
     \returns the value that was shifted off the bottom (OUT0) */
 uint16_t tlc_shiftDown(uint16_t topValue)
 {
-    uint8_t *p = tlc_GSData + NUM_TLCS * 24 - 2;
+    uint8_t *p = tlc_GSData + Tlc.num_tlcs * 24 - 2;
     uint16_t zeroValue =
-            ((uint16_t)(*(tlc_GSData + NUM_TLCS * 24 - 2) & 0x0F) << 8)
-                      | *(tlc_GSData + NUM_TLCS * 24 - 1);
+            ((uint16_t)(*(tlc_GSData + Tlc.num_tlcs * 24 - 2) & 0x0F) << 8)
+                      | *(tlc_GSData + Tlc.num_tlcs * 24 - 1);
     while (p > tlc_GSData) {
         *(p + 1) = (*p >> 4) | (*(p - 1) << 4);
         *p = (*(p - 1) >> 4) | (*(p - 2) << 4);

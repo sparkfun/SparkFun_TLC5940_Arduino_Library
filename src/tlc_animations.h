@@ -74,7 +74,7 @@ volatile void tlc_animationXLATCallback(void)
     } else {
         if (tlc_animationFrames) {
             tlc_setGSfromProgmem(tlc_currentAnimation +
-                                (--tlc_animationFrames * NUM_TLCS * 24));
+                                (--tlc_animationFrames * Tlc.num_tlcs * 24));
             tlc_animationPeriodsWait = tlc_animationPeriodsPerFrame;
             Tlc.update();
         } else { // animation is done

@@ -69,7 +69,7 @@ void tlc_setGSfromProgmem(prog_uint8_t *gsArray)
 {
     prog_uint8_t *gsArrayp = gsArray;
     uint8_t *gsDatap = tlc_GSData;
-    while (gsDatap < tlc_GSData + NUM_TLCS * 24) {
+    while (gsDatap < tlc_GSData + Tlc.num_tlcs * 24) {
         *gsDatap++ = pgm_read_byte(gsArrayp++);
         *gsDatap++ = pgm_read_byte(gsArrayp++);
         *gsDatap++ = pgm_read_byte(gsArrayp++);
@@ -111,7 +111,7 @@ void tlc_setDCfromProgmem(prog_uint8_t *dcArray)
     tlc_dcModeStart();
 
     prog_uint8_t *p = dcArray;
-    prog_uint8_t *dcArrayEnd = dcArray + NUM_TLCS * 12;
+    prog_uint8_t *dcArrayEnd = dcArray + Tlc.num_tlcs * 12;
     while (p < dcArrayEnd) {
         tlc_shift8(pgm_read_byte(p++));
     }

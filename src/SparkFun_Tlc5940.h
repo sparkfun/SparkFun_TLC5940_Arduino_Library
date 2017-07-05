@@ -57,7 +57,7 @@ extern volatile void (*tlc_onUpdateFinished)(void);
 class Tlc5940
 {
   public:
-    void init(uint8_t num_tlcs = 1, uint16_t initialValue = 0);
+    void init(uint16_t initialValue = 0, uint8_t num_tlcs = 1);
     void clear(void);
     uint8_t update(void);
     void set(TLC_CHANNEL_TYPE channel, uint16_t value);
@@ -70,8 +70,10 @@ class Tlc5940
     uint8_t readXERR(void);
 #endif
   private:
-	uint8_t num_tlcs;
+	uint8_t _num_tlcs;
 	uint8_t *tlc_GSData;
+  public:
+	const uint8_t &num_tlcs = _num_tlcs;
 };
 
 void tlc_shift8_init(void);

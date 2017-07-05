@@ -71,9 +71,9 @@ ISR(TIMER1_OVF_vect)
     zeros, or whatever initialValue is set to and the Timers will start.
     \param initialValue = 0, optional parameter specifing the inital startup
            value */
-void Tlc5940::init(uint8_t num_tlcs, uint16_t initialValue)
+void Tlc5940::init(uint16_t initialValue, uint8_t num_tlcs)
 {
-	this->num_tlcs = num_tlcs;
+	this->_num_tlcs = num_tlcs;
 	/** Packed grayscale data, 24 bytes (16 * 12 bits) per TLC.
 
     Format: Lets assume we have 2 TLCs, A and B, daisy-chained with the SOUT of
